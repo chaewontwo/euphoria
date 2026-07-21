@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EUPHORIA — for all animals in the world</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest-deep:#26362c;
+    --forest:#4f7a52;
+    --forest-mid:#6a9370;
+    --forest-light:#a9c5ab;
+    --sand:#f6f3ea;
+    --sand-dark:#ece6d6;
+    --paper:#fffdf8;
+    --gold:#c08a34;
+    --gold-light:#e7c988;
+    --ink:#232823;
+    --line:#d9d2bd;
+    --white:#ffffff;
+    --radius:18px;
+    --shadow:0 10px 30px -12px rgba(38,54,44,0.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:'Noto Sans KR',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.display{
+    font-family:'Space Grotesk','Noto Sans KR',sans-serif;
+    color:var(--forest-deep);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--forest);
+    font-weight:600;
+    margin-bottom:12px;
+    display:inline-block;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(246,243,234,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;
+  }
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand svg{width:34px;height:34px;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-text .name{font-family:'Space Grotesk';font-weight:700;font-size:19px;letter-spacing:0.03em;color:var(--forest-deep);}
+  .brand-text .tag{font-size:10px;color:var(--forest-mid);letter-spacing:0.02em;}
+  .nav-links{display:flex;align-items:center;gap:6px;}
+  .nav-links button{
+    background:none;border:none;padding:10px 16px;border-radius:100px;
+    font-size:14.5px;font-weight:500;color:var(--forest-deep);
+    transition:background .2s;
+  }
+  .nav-links button:hover,.nav-links button.active{background:var(--sand-dark);}
+  .nav-cta{
+    background:var(--forest-deep);color:var(--white)!important;
+    padding:10px 20px!important;border-radius:100px;font-weight:600!important;
+    margin-left:6px;
+  }
+  .nav-cta:hover{background:var(--forest)!important;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:76px 0 60px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .hero h1{font-size:47px;line-height:1.12;font-weight:700;}
+  .hero h1 em{font-style:normal;color:var(--forest);}
+  .hero p.lead{font-size:16.5px;color:#4c5850;max-width:480px;margin-top:18px;}
+  .hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+  .btn{
+    padding:13px 24px;border-radius:100px;font-weight:600;font-size:14.5px;
+    border:1.5px solid var(--forest-deep);transition:.2s;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--forest-deep);color:var(--white);}
+  .btn-primary:hover{background:var(--forest);border-color:var(--forest);}
+  .btn-ghost{background:transparent;color:var(--forest-deep);}
+  .btn-ghost:hover{background:var(--sand-dark);}
+  .btn-gold{border-color:var(--gold);background:var(--gold);color:#fff;}
+  .btn-gold:hover{background:#a97a2c;}
+  .btn-sm{padding:9px 16px;font-size:13px;}
+  .btn-block{width:100%;justify-content:center;}
+
+  /* passbook signature widget */
+  .passbook{
+    background:var(--forest-deep);
+    border-radius:22px;
+    padding:30px 28px 26px;
+    color:var(--sand);
+    box-shadow:var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .passbook::before{
+    content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+    border-radius:50%;background:radial-gradient(circle,var(--forest) 0%, transparent 70%);opacity:.5;
+  }
+  .passbook-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;}
+  .passbook-top .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--forest-light);font-family:'JetBrains Mono';}
+  .passbook-top .acct{font-family:'JetBrains Mono';font-size:12px;color:var(--forest-light);margin-top:4px;}
+  .pb-icon{width:30px;height:30px;opacity:.85;}
+  .balance-row{margin-top:26px;position:relative;}
+  .balance-row .cur-label{font-size:12px;color:var(--forest-light);margin-bottom:8px;font-family:'JetBrains Mono';}
+  .digits{display:flex;gap:4px;flex-wrap:wrap;}
+  .digit{
+    font-family:'JetBrains Mono';font-weight:700;font-size:30px;
+    width:34px;height:46px;display:flex;align-items:center;justify-content:center;
+    border-radius:8px;background:rgba(255,255,255,0.06);cursor:pointer;
+    color:var(--forest-light);transition:.15s;border:2px solid transparent;
+  }
+  .digit.kept{color:var(--sand);background:rgba(255,255,255,0.08);}
+  .digit.donate{color:#2a1e0a;background:var(--gold-light);}
+  .digit:hover{border-color:var(--gold);}
+  .comma{width:8px;display:flex;align-items:flex-end;justify-content:center;font-family:'JetBrains Mono';color:var(--forest-light);padding-bottom:8px;}
+  .pb-hint{font-size:12.5px;color:var(--forest-light);margin-top:10px;}
+  .pb-result{
+    margin-top:20px;background:rgba(0,0,0,0.18);border-radius:14px;padding:16px 18px;
+    display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+  }
+  .pb-result .r-label{font-size:12px;color:var(--forest-light);}
+  .pb-result .r-amount{font-family:'JetBrains Mono';font-size:22px;font-weight:700;color:var(--gold-light);}
+  .pb-period{display:flex;gap:6px;margin-top:14px;}
+  .pb-period button{
+    flex:1;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:var(--sand);
+    border-radius:9px;padding:9px 4px;font-size:12.5px;font-weight:500;
+  }
+  .pb-period button.active{background:var(--gold);color:#2a1e0a;border-color:var(--gold);font-weight:700;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{padding:86px 0;}
+  section.block.alt{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .block-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px;flex-wrap:wrap;}
+  .block-head h2{font-size:33px;font-weight:700;}
+  .block-head p{color:#586359;font-size:15px;max-width:460px;margin-top:8px;}
+
+  /* ---------- ANIMAL SECTION ---------- */
+  .filters{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
+  .filters button{
+    padding:9px 18px;border-radius:100px;border:1.5px solid var(--line);background:var(--white);
+    font-size:13.5px;font-weight:500;color:var(--forest-deep);transition:.15s;
+  }
+  .filters button.active{background:var(--forest-deep);color:#fff;border-color:var(--forest-deep);}
+
+  .animal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:22px;}
+  .a-card{
+    background:var(--white);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+    display:flex;flex-direction:column;transition:.2s;
+  }
+  .a-card:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+  .a-media{
+    height:150px;display:flex;align-items:center;justify-content:center;font-size:58px;
+    position:relative;
+  }
+  .a-tag{
+    position:absolute;top:10px;left:10px;background:rgba(255,255,255,0.9);color:var(--forest-deep);
+    font-size:10.5px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.02em;
+  }
+  .a-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:9px;flex:1;}
+  .a-body .a-name{font-size:16.5px;font-weight:700;color:var(--forest-deep);font-family:'Space Grotesk';}
+  .a-body .a-org{font-size:12px;color:var(--forest-mid);font-weight:500;}
+  .a-body .a-story{font-size:13px;color:#5b655c;flex:1;}
+  .progress{height:7px;background:var(--sand-dark);border-radius:100px;overflow:hidden;margin-top:6px;}
+  .progress > div{height:100%;background:linear-gradient(90deg,var(--forest),var(--forest-mid));}
+  .a-stats{display:flex;justify-content:space-between;font-size:11.5px;color:#586359;font-family:'JetBrains Mono';}
+  .a-actions{display:flex;gap:8px;margin-top:6px;}
+  .a-actions .btn{flex:1;justify-content:center;padding:9px 10px;font-size:12.8px;}
+
+  .add-card{
+    border:2px dashed var(--line);border-radius:var(--radius);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:10px;min-height:280px;background:transparent;
+    color:var(--forest-mid);font-weight:600;font-size:13.5px;text-align:center;padding:20px;
+  }
+  .add-card:hover{border-color:var(--forest);color:var(--forest-deep);background:var(--sand-dark);}
+  .add-card .plus{width:44px;height:44px;border-radius:50%;background:var(--forest-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;}
+
+  /* ---------- DONATION SECTION ---------- */
+  .donate-shell{display:grid;grid-template-columns:1fr 1.15fr;gap:34px;align-items:start;}
+  .step-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin-bottom:18px;
+  }
+  .step-card h4{font-size:14px;display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .step-num{width:24px;height:24px;border-radius:50%;background:var(--forest-deep);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';flex-shrink:0;}
+  .selected-animal{display:flex;gap:12px;align-items:center;padding:10px;background:var(--sand);border-radius:12px;}
+  .selected-animal .emoji{font-size:34px;}
+  .selected-animal .info .n{font-weight:700;color:var(--forest-deep);font-size:14.5px;}
+  .selected-animal .info .s{font-size:12px;color:#5b655c;}
+  .pick-list{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;}
+  .pick-chip{
+    flex-shrink:0;padding:8px 14px;border-radius:100px;border:1.5px solid var(--line);background:var(--sand);
+    font-size:12.5px;font-weight:500;white-space:nowrap;
+  }
+  .pick-chip.active{background:var(--forest-deep);color:#fff;border-color:var(--forest-deep);}
+  .link-box{border:1.5px dashed var(--line);border-radius:12px;padding:16px;text-align:center;}
+  .link-box.linked{border-style:solid;border-color:var(--forest);background:#f2f7f2;}
+  .row-inline{display:flex;gap:10px;align-items:center;}
+  .slider-wrap{margin-top:6px;}
+  input[type=range]{width:100%;accent-color:var(--forest);}
+  .digit-num{font-family:'JetBrains Mono';font-weight:700;font-size:22px;color:var(--forest-deep);}
+  .period-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:6px;}
+  .period-grid button{
+    padding:10px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--sand);font-size:12.5px;font-weight:500;
+  }
+  .period-grid button.active{background:var(--forest-deep);color:#fff;border-color:var(--forest-deep);}
+
+  .summary-card{
+    background:var(--forest-deep);color:var(--sand);border-radius:var(--radius);padding:28px;
+    position:sticky;top:96px;
+  }
+  .summary-card h4{color:var(--sand);font-size:15px;margin-bottom:18px;font-family:'Space Grotesk';}
+  .summary-line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.1);font-size:13.5px;}
+  .summary-line span:first-child{color:var(--forest-light);}
+  .summary-amount{
+    margin-top:18px;background:rgba(255,255,255,0.07);border-radius:12px;padding:18px;text-align:center;
+  }
+  .summary-amount .amt{font-family:'JetBrains Mono';font-size:30px;font-weight:700;color:var(--gold-light);}
+  .summary-amount .per{font-size:12px;color:var(--forest-light);margin-top:4px;}
+  .hist{margin-top:26px;}
+  .hist h5{font-size:12px;letter-spacing:.06em;color:var(--forest-light);text-transform:uppercase;margin-bottom:10px;font-family:'JetBrains Mono';}
+  .hist-item{display:flex;justify-content:space-between;font-size:12.5px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,0.12);}
+  .hist-item .h-amt{font-family:'JetBrains Mono';color:var(--gold-light);}
+  .empty-note{font-size:12.5px;color:var(--forest-light);}
+
+  /* ---------- INSTITUTION SECTION ---------- */
+  .org-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-bottom:44px;}
+  .org-card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px;}
+  .org-card .o-icon{width:42px;height:42px;border-radius:50%;background:var(--sand-dark);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;}
+  .org-card .o-name{font-weight:700;color:var(--forest-deep);font-size:15px;font-family:'Space Grotesk';}
+  .org-card .o-loc{font-size:11.5px;color:var(--forest-mid);margin:3px 0 8px;}
+  .org-card .o-desc{font-size:12.5px;color:#5b655c;}
+  .org-card .o-meta{margin-top:12px;font-size:11.5px;font-family:'JetBrains Mono';color:var(--forest);font-weight:600;}
+
+  .org-forms{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .form-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:28px;}
+  .form-card h3{font-size:18px;margin-bottom:6px;}
+  .form-card .sub{font-size:12.5px;color:#5b655c;margin-bottom:20px;}
+  .field{margin-bottom:14px;}
+  .field label{font-size:12.5px;font-weight:600;color:var(--forest-deep);display:block;margin-bottom:6px;}
+  .field input,.field textarea,.field select{
+    width:100%;padding:10px 12px;border-radius:9px;border:1.5px solid var(--line);background:var(--sand);
+    font-family:inherit;font-size:13.5px;color:var(--ink);
+  }
+  .field textarea{resize:vertical;min-height:64px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .upload-stub{
+    border:1.5px dashed var(--line);border-radius:9px;padding:16px;text-align:center;font-size:12px;color:var(--forest-mid);background:var(--sand);
+  }
+  .form-note{font-size:11.5px;color:#889183;margin-top:10px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--forest-deep);color:var(--forest-light);padding:52px 0 26px;}
+  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .foot-brand{display:flex;gap:10px;align-items:center;}
+  .foot-brand .name{color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:18px;}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .foot-col h5{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--forest-light);margin-bottom:12px;font-family:'JetBrains Mono';}
+  .foot-col a{display:block;font-size:13px;color:#d9e6da;margin-bottom:8px;}
+  .foot-bottom{display:flex;justify-content:space-between;padding-top:20px;font-size:11.5px;color:#8aa38d;flex-wrap:wrap;gap:8px;}
+
+  /* ---------- AUTH / USER ---------- */
+  .auth-area{display:flex;align-items:center;gap:8px;}
+  .user-chip{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 16px;border-radius:100px;background:var(--sand-dark);}
+  .user-chip .u-name{font-size:13px;font-weight:600;color:var(--forest-deep);white-space:nowrap;}
+  .user-chip button{background:var(--forest-deep);color:#fff;border:none;border-radius:100px;padding:7px 14px;font-size:11.5px;font-weight:600;}
+  .auth-tabs{display:flex;gap:6px;margin:16px 0 20px;background:var(--sand-dark);padding:4px;border-radius:100px;}
+  .auth-tabs button{flex:1;padding:9px;border:none;background:transparent;border-radius:100px;font-size:13px;font-weight:600;color:var(--forest-mid);}
+  .auth-tabs button.active{background:var(--forest-deep);color:#fff;}
+  .auth-note{font-size:11.5px;color:#8a9488;margin-top:14px;text-align:center;line-height:1.5;}
+
+  /* ---------- MYPAGE ---------- */
+  .mypage-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:24px;align-items:start;}
+  .mp-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:18px;}
+  .mp-card h4{font-size:14px;margin-bottom:14px;}
+  .mp-locked{background:var(--white);border:1.5px dashed var(--line);border-radius:var(--radius);padding:54px 30px;text-align:center;}
+  .mp-locked .lock-emoji{font-size:38px;margin-bottom:14px;}
+  .mp-locked h3{font-size:17px;}
+  .mp-locked p{font-size:13px;color:#5b655c;margin:8px 0 20px;}
+  .mp-account-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:13px;border-bottom:1px dashed var(--line);}
+  .mp-table{width:100%;border-collapse:collapse;font-size:12.8px;}
+  .mp-table th{text-align:left;color:var(--forest-mid);font-weight:600;font-size:10.8px;text-transform:uppercase;letter-spacing:.04em;padding:8px 6px;border-bottom:1.5px solid var(--line);font-family:'JetBrains Mono';}
+  .mp-table td{padding:10px 6px;border-bottom:1px solid var(--sand-dark);font-size:12.5px;}
+  .mp-table .amt{font-family:'JetBrains Mono';color:var(--forest);font-weight:600;}
+
+  /* ---------- GUIDE MODAL ---------- */
+  .modal.wide{max-width:600px;}
+  .guide-item{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--line);text-align:left;}
+  .guide-item:last-child{border-bottom:none;}
+  .guide-num{width:28px;height:28px;border-radius:50%;background:var(--forest-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:12.5px;flex-shrink:0;}
+  .guide-item h5{font-size:13.5px;color:var(--forest-deep);margin-bottom:3px;font-family:'Space Grotesk';}
+  .guide-item p{font-size:12.5px;color:#5b655c;margin:0;line-height:1.55;}
+
+  /* ---------- MODAL ---------- */
+  .modal-bg{
+    position:fixed;inset:0;background:rgba(35,40,35,0.55);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;
+  }
+  .modal-bg.open{display:flex;}
+  .modal{
+    background:var(--paper);border-radius:20px;max-width:520px;width:100%;max-height:86vh;overflow-y:auto;
+    padding:30px;position:relative;
+  }
+  .modal-close{
+    position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--sand-dark);
+    border:none;font-size:16px;color:var(--forest-deep);display:flex;align-items:center;justify-content:center;
+  }
+  .modal .m-emoji{font-size:52px;text-align:center;margin-bottom:10px;}
+  .modal h3{text-align:center;font-size:20px;}
+  .modal .m-org{text-align:center;font-size:12.5px;color:var(--forest-mid);margin-top:4px;margin-bottom:16px;}
+  .modal .m-story{font-size:14px;color:#4c5850;background:var(--sand);padding:16px;border-radius:12px;margin-bottom:18px;}
+  .toast{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(120%);
+    background:var(--forest-deep);color:#fff;padding:14px 24px;border-radius:100px;font-size:13.5px;font-weight:500;
+    box-shadow:var(--shadow);z-index:1200;transition:transform .3s ease;display:flex;align-items:center;gap:8px;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .donate-shell{grid-template-columns:1fr;}
+    .summary-card{position:static;}
+    .org-forms{grid-template-columns:1fr;}
+    .mypage-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .hero h1{font-size:34px;}
+    .field-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <svg viewBox="0 0 64 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 2C17 2 6 13 6 27c0 18 22 40 24 42 2-2 24-24 24-42C54 13 43 2 32 2z" stroke="#4f7a52" stroke-width="3" fill="none"/>
+        <circle cx="32" cy="27" r="17" stroke="#4f7a52" stroke-width="2.4" fill="none"/>
+        <path d="M32 33c-5 0-8 3.4-8 7 0 2.6 2.2 4 5 4 1.6 0 2.2-.9 3-.9s1.4.9 3 .9c2.8 0 5-1.4 5-4 0-3.6-3-7-8-7z" stroke="#4f7a52" stroke-width="2" fill="none"/>
+        <ellipse cx="24" cy="24" rx="2.6" ry="3.6" stroke="#4f7a52" stroke-width="2" fill="none"/>
+        <ellipse cx="30" cy="19" rx="2.6" ry="3.6" stroke="#4f7a52" stroke-width="2" fill="none"/>
+        <ellipse cx="37" cy="19" rx="2.6" ry="3.6" stroke="#4f7a52" stroke-width="2" fill="none"/>
+        <ellipse cx="42" cy="24" rx="2.6" ry="3.6" stroke="#4f7a52" stroke-width="2" fill="none"/>
+      </svg>
+      <div class="brand-text">
+        <span class="name">EUPHORIA</span>
+        <span class="tag">for all animals in the world</span>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <button data-nav="animals" class="active">동물 소개</button>
+      <button data-nav="donate">모금</button>
+      <button data-nav="mypage">마이페이지</button>
+      <button data-nav="orgs">기관 연계</button>
+      <button id="guideBtn">이용안내</button>
+      <button class="nav-cta" data-nav="donate">지금 기부하기</button>
+    </nav>
+    <div class="auth-area" id="authArea"></div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Digit Donation System</span>
+      <h1>통장 속 자투리 숫자가<br><em>한 생명</em>을 살립니다</h1>
+      <p class="lead">EUPHORIA는 유기동물, 은퇴 경주마처럼 사연을 가진 동물들을 소개하고, 부담 없는 방식으로 모금을 이어주는 통합 플랫폼입니다. 통장 잔액의 원하는 자릿수만큼만, 정한 주기마다 자동으로 기부하세요.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-nav="animals">동물 이야기 보러가기 →</button>
+        <button class="btn btn-ghost" data-nav="orgs">기관으로 참여하기</button>
+      </div>
+    </div>
+
+    <div class="passbook" id="heroPassbook">
+      <div class="passbook-top">
+        <div>
+          <div class="label">My Passbook</div>
+          <div class="acct">EUPHORIA · 302-●●●●-1128</div>
+        </div>
+        <svg class="pb-icon" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="#a9c5ab" stroke-width="1.6"/><path d="M2 9h20" stroke="#a9c5ab" stroke-width="1.6"/></svg>
+      </div>
+      <div class="balance-row">
+        <div class="cur-label">현재 잔액 — 자릿수를 눌러 기부 범위를 선택하세요</div>
+        <div class="digits" id="heroDigits"></div>
+        <div class="pb-hint" id="heroHint"></div>
+      </div>
+      <div class="pb-result">
+        <div>
+          <div class="r-label">선택 주기마다 자동 기부</div>
+          <div class="r-amount mono" id="heroAmount">₩0</div>
+        </div>
+        <div>
+          <div class="r-label">기부 후 잔액</div>
+          <div class="r-amount mono" id="heroKept" style="color:#d9e6da;font-size:16px;">₩0</div>
+        </div>
+      </div>
+      <div class="pb-period" id="heroPeriod"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 동물 소개 ===================== -->
+<section class="block" id="animals">
+  <div class="wrap">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">Animal Stories</span>
+        <h2>동물들의 이야기</h2>
+        <p>기관과 운영진이 직접 등록한 동물들의 사연입니다. 마음이 가는 동물을 선택해 모금에 참여해보세요.</p>
+      </div>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="animal-grid" id="animalGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== 모금 ===================== -->
+<section class="block alt" id="donate">
+  <div class="wrap">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">Fundraising</span>
+        <h2>자릿수 모금 시작하기</h2>
+        <p>동물을 선택하고, 통장을 연결한 뒤, 기부할 자릿수와 주기를 정하면 끝. 매번 신경 쓰지 않아도 자동으로 기부됩니다.</p>
+      </div>
+    </div>
+
+    <div class="donate-shell">
+      <div>
+        <div class="step-card">
+          <h4><span class="step-num">1</span> 기부할 동물 선택</h4>
+          <div class="pick-list" id="pickList"></div>
+          <div class="selected-animal" id="selectedAnimalBox" style="margin-top:14px;"></div>
+        </div>
+
+        <div class="step-card">
+          <h4><span class="step-num">2</span> 통장 연결</h4>
+          <div class="link-box" id="linkBox"></div>
+        </div>
+
+        <div class="step-card">
+          <h4><span class="step-num">3</span> 기부 자릿수 선택 <span style="font-weight:400;color:#8a9488;">(1~100 자리)</span></h4>
+          <div class="row-inline" style="justify-content:space-between;">
+            <span style="font-size:12.5px;color:#586359;">선택한 자릿수까지 기부</span>
+            <span class="digit-num" id="digitVal">3</span>
+          </div>
+          <div class="slider-wrap">
+            <input type="range" min="1" max="100" value="3" id="digitSlider">
+          </div>
+          <div class="digits" id="donateDigits" style="margin-top:14px;"></div>
+        </div>
+
+        <div class="step-card">
+          <h4><span class="step-num">4</span> 기부 주기 선택</h4>
+          <div class="period-grid" id="periodGrid"></div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <h4>기부 요약</h4>
+        <div class="summary-line"><span>대상 동물</span><span id="sumAnimal">—</span></div>
+        <div class="summary-line"><span>현재 잔액</span><span class="mono" id="sumBalance">₩0</span></div>
+        <div class="summary-line"><span>기부 자릿수</span><span id="sumDigit">3자리</span></div>
+        <div class="summary-line"><span>기부 주기</span><span id="sumPeriod">매주</span></div>
+        <div class="summary-amount">
+          <div class="amt mono" id="sumAmount">₩0</div>
+          <div class="per">주기마다 자동 기부됩니다</div>
+        </div>
+        <button class="btn btn-gold btn-block" style="margin-top:16px;" id="confirmDonate">이 조건으로 정기 기부 시작</button>
+
+        <div class="hist">
+          <h5>나의 기부 내역</h5>
+          <div id="histList"><div class="empty-note">아직 기부 내역이 없어요.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 마이페이지 ===================== -->
+<section class="block alt" id="mypage">
+  <div class="wrap">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">My Page</span>
+        <h2>마이페이지</h2>
+        <p>로그인하면 계좌를 등록하고, 내가 기부한 동물들의 내역을 언제든 확인할 수 있어요.</p>
+      </div>
+    </div>
+    <div id="mypageBody"></div>
+  </div>
+</section>
+
+<!-- ===================== 기관 연계 ===================== -->
+<section class="block" id="orgs">
+  <div class="wrap">
+    <div class="block-head">
+      <div>
+        <span class="eyebrow">Partner Organizations</span>
+        <h2>기관 연계</h2>
+        <p>동물 보호 기관·단체가 보호 중인 동물의 정보를 직접 게시하고, 후원자와 연결될 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="org-grid" id="orgGrid"></div>
+
+    <div class="org-forms">
+      <div class="form-card">
+        <h3>🐾 보호 동물 등록하기</h3>
+        <div class="sub">기관 또는 운영자 전용 — 현재 보호 중인 동물의 정보를 게시합니다.</div>
+        <form id="animalForm">
+          <div class="field-row">
+            <div class="field"><label>동물 이름</label><input required id="af_name" placeholder="예: 보리"></div>
+            <div class="field"><label>종류</label>
+              <select id="af_type">
+                <option value="유기견">유기견</option>
+                <option value="유기묘">유기묘</option>
+                <option value="은퇴 경주마">은퇴 경주마</option>
+                <option value="야생동물">야생동물</option>
+                <option value="기타">기타</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>등록 기관명</label><input required id="af_org" placeholder="예: 서울 유기동물 보호센터"></div>
+            <div class="field"><label>목표 모금액(원)</label><input required id="af_target" type="number" placeholder="1000000"></div>
+          </div>
+          <div class="field"><label>사연 소개</label><textarea required id="af_story" placeholder="이 동물의 사연을 자유롭게 소개해주세요."></textarea></div>
+          <div class="field"><label>대표 이미지</label><div class="upload-stub">📷 이미지를 드래그하거나 클릭해서 업로드 (데모에서는 아이콘으로 대체됩니다)</div></div>
+          <button type="submit" class="btn btn-primary btn-block">동물 등록하기</button>
+          <div class="form-note">등록된 동물은 즉시 [동물 소개] 섹션에 노출됩니다.</div>
+        </form>
+      </div>
+
+      <div class="form-card">
+        <h3>🏛️ 기관 파트너 신청</h3>
+        <div class="sub">EUPHORIA와 함께할 동물 보호 기관·단체를 상시 모집합니다.</div>
+        <form id="orgForm">
+          <div class="field-row">
+            <div class="field"><label>기관명</label><input required id="of_name" placeholder="예: 제주 은퇴마 보호협회"></div>
+            <div class="field"><label>소재지</label><input required id="of_loc" placeholder="예: 제주"></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>담당자명</label><input required id="of_person" placeholder="홍길동"></div>
+            <div class="field"><label>연락처</label><input required id="of_phone" placeholder="010-0000-0000"></div>
+          </div>
+          <div class="field"><label>기관 소개</label><textarea required id="of_desc" placeholder="기관이 하는 일과 현재 보호 중인 동물 수 등을 소개해주세요."></textarea></div>
+          <button type="submit" class="btn btn-primary btn-block">파트너 신청하기</button>
+          <div class="form-note">신청 즉시 [기관 연계] 목록에 노출됩니다. (데모 화면)</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <svg width="30" height="36" viewBox="0 0 64 78" fill="none"><path d="M32 2C17 2 6 13 6 27c0 18 22 40 24 42 2-2 24-24 24-42C54 13 43 2 32 2z" stroke="#a9c5ab" stroke-width="3" fill="none"/><circle cx="32" cy="27" r="17" stroke="#a9c5ab" stroke-width="2.4" fill="none"/></svg>
+        <div>
+          <div class="name">EUPHORIA</div>
+          <div style="font-size:11px;color:#8aa38d;">for all animals in the world</div>
+        </div>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Platform</h5>
+          <a data-nav="animals">동물 소개</a>
+          <a data-nav="donate">모금</a>
+          <a data-nav="orgs">기관 연계</a>
+        </div>
+        <div class="foot-col">
+          <h5>About</h5>
+          <a href="#">자릿수 모금이란?</a>
+          <a href="#">기관 파트너 안내</a>
+          <a href="#">문의하기</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 EUPHORIA. All animals deserve euphoria.</span>
+      <span>본 사이트는 데모 목적의 프로토타입입니다.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal" id="modalContent"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   구글 시트 연동 설정
+   1) 새 구글 스프레드시트를 만들고 확장 프로그램 > Apps Script에서
+      함께 제공한 Code.gs 내용을 붙여넣으세요.
+   2) 배포 > 새 배포 > 유형: 웹 앱
+      - 실행 계정: 나
+      - 액세스 권한: 전체 허용 (Anyone)
+   3) 배포 후 나오는 웹 앱 URL을 아래 API_URL에 붙여넣으세요.
+   ============================================================ */
+const API_URL = "https://script.google.com/macros/s/AKfycbzL-aULJLrhYjRwj9_dHrz6Lr5xTkO0YKOJ9vOKaqa-qr6Mjfw07s2ONnUuWVuzc2Z0gQ/exec";
+
+async function apiCall(action, payload={}){
+  if(!API_URL || API_URL.includes('여기에')){
+    toast('먼저 Apps Script 배포 URL을 코드 상단(API_URL)에 등록해주세요.');
+    return { ok:false, message:'API_URL not configured' };
+  }
+  try{
+    const res = await fetch(API_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' }, // preflight(OPTIONS) 방지용
+      body: JSON.stringify(Object.assign({action}, payload))
+    });
+    return await res.json();
+  }catch(err){
+    toast('서버(구글 시트)에 연결하지 못했어요.');
+    return { ok:false, message: err.message };
+  }
+}
+
+/* ============ 시드 데이터 ============ */
+const EMOJI = {"유기견":"🐕","유기묘":"🐈","은퇴 경주마":"🐎","야생동물":"🦉","기타":"🐾"};
+const BG = {"유기견":"#eef3ea","유기묘":"#f3ecdf","은퇴 경주마":"#eef0e6","야생동물":"#e7eee8","기타":"#f1ede1"};
+
+let animals = [
+  {id:1, name:"보리", type:"유기견", org:"서울 유기동물 보호센터", story:"교통사고를 당한 채 방치되어 있던 보리는 뒷다리 재활 치료를 받고 있어요. 새 가족을 만날 그날까지, 치료비가 필요합니다.", target:1500000, raised:842000},
+  {id:2, name:"질주", type:"은퇴 경주마", org:"제주 은퇴마 보호협회", story:"7년간 트랙을 달리며 상금을 벌어다준 질주는 부상 이후 은퇴했어요. 도살장 대신 평화로운 여생을 보낼 목장 비용이 필요합니다.", target:5000000, raised:3120000},
+  {id:3, name:"두부", type:"유기묘", org:"인천 캣맘 연합", story:"길에서 태어나 눈병을 앓던 두부는 구조 후 한쪽 시력을 잃었어요. 남은 치료와 중성화 수술이 필요한 상태예요.", target:800000, raised:611000},
+  {id:4, name:"뭉치", type:"유기견", org:"대전 동물사랑센터", story:"11살 노령견 뭉치는 심장 질환으로 매달 약을 먹어야 해요. 마지막까지 편안하게 지낼 수 있도록 도와주세요.", target:1200000, raised:305000},
+  {id:5, name:"부엉", type:"야생동물", org:"국립 야생동물 재활센터", story:"풍력발전기 날개에 부딪혀 날개를 다친 수리부엉이 부엉이는 야생 복귀를 위한 재활 훈련을 받고 있어요.", target:900000, raised:150000},
+  {id:6, name:"까망이", type:"유기묘", org:"인천 캣맘 연합", story:"태어난 지 3주 만에 어미를 잃은 까망이는 사람 손으로 젖병 수유를 받으며 자라고 있어요.", target:400000, raised:388000},
+];
+
+let orgs = [
+  {name:"서울 유기동물 보호센터", loc:"서울", desc:"매년 300마리 이상의 유기견을 구조하고 재활을 돕는 비영리 단체입니다.", count: "현재 42마리 보호중"},
+  {name:"제주 은퇴마 보호협회", loc:"제주", desc:"경주마·승마용으로 쓰이다 은퇴한 말들에게 목초지를 제공합니다.", count:"현재 11마리 보호중"},
+  {name:"인천 캣맘 연합", loc:"인천", desc:"지역 길고양이 중성화(TNR)와 구조·치료 활동을 이어가는 자원봉사 단체입니다.", count:"현재 27마리 보호중"},
+  {name:"국립 야생동물 재활센터", loc:"경기", desc:"다친 야생동물을 치료해 자연으로 돌려보내는 공공 재활 기관입니다.", count:"현재 19마리 보호중"},
+];
+
+let currentUser = null;   // {id, email, name, createdAt}
+let userAccount = null;   // {accountNumber, balance, linkedAt}
+let userDonations = [];   // 로그인한 사용자의 기부 내역 (구글 시트에서 로드)
+let selectedAnimalId = animals[0].id;
+let activeFilter = "전체";
+let linked = false;
+let balance = 0;
+let selectedPeriodHero = "매주";
+let selectedPeriod = "매주";
+
+function won(n){ return "₩" + Math.round(n).toLocaleString("ko-KR"); }
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(window.__toastT);
+  window.__toastT = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ============ 네비게이션 ============ */
+document.querySelectorAll('[data-nav]').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    document.getElementById(el.dataset.nav).scrollIntoView({behavior:'smooth', block:'start'});
+    document.querySelectorAll('.nav-links button[data-nav]').forEach(b=>b.classList.remove('active'));
+    const match = document.querySelector('.nav-links button[data-nav="'+el.dataset.nav+'"]');
+    if(match) match.classList.add('active');
+  });
+});
+
+/* ============ 동물 소개 렌더링 ============ */
+function renderFilters(){
+  const types = ["전체", ...new Set(animals.map(a=>a.type))];
+  const box = document.getElementById('filters');
+  box.innerHTML = types.map(t=>`<button data-t="${t}" class="${t===activeFilter?'active':''}">${t}</button>`).join('');
+  box.querySelectorAll('button').forEach(b=>b.addEventListener('click', ()=>{
+    activeFilter = b.dataset.t; renderFilters(); renderAnimalGrid();
+  }));
+}
+
+function renderAnimalGrid(){
+  const grid = document.getElementById('animalGrid');
+  const list = animals.filter(a => activeFilter==="전체" || a.type===activeFilter);
+  grid.innerHTML = list.map(a=>{
+    const pct = Math.min(100, Math.round(a.raised/a.target*100));
+    return `
+    <div class="a-card">
+      <div class="a-media" style="background:${BG[a.type]}">
+        <span class="a-tag">${a.type}</span>
+        ${EMOJI[a.type]}
+      </div>
+      <div class="a-body">
+        <div class="a-name">${a.name}</div>
+        <div class="a-org">${a.org}</div>
+        <div class="a-story">${a.story.slice(0,54)}${a.story.length>54?'…':''}</div>
+        <div class="progress"><div style="width:${pct}%"></div></div>
+        <div class="a-stats"><span>${won(a.raised)} 모금</span><span>${pct}%</span></div>
+        <div class="a-actions">
+          <button class="btn btn-ghost" data-view="${a.id}">이야기 보기</button>
+          <button class="btn btn-primary" data-donate="${a.id}">기부하기</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('') + `
+    <button class="add-card" id="openAddAnimal">
+      <span class="plus">＋</span>
+      기관·운영자 전용<br>보호 동물 등록하기
+    </button>`;
+
+  grid.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click', ()=>openAnimalModal(+b.dataset.view)));
+  grid.querySelectorAll('[data-donate]').forEach(b=>b.addEventListener('click', ()=>{
+    selectedAnimalId = +b.dataset.donate;
+    document.getElementById('donate').scrollIntoView({behavior:'smooth'});
+    renderDonateAnimal();
+  }));
+  document.getElementById('openAddAnimal').addEventListener('click', ()=>{
+    document.getElementById('orgs').scrollIntoView({behavior:'smooth'});
+    document.getElementById('af_name').focus();
+  });
+}
+
+function openAnimalModal(id){
+  const a = animals.find(x=>x.id===id);
+  const pct = Math.min(100, Math.round(a.raised/a.target*100));
+  document.getElementById('modalContent').className = 'modal';
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" id="mClose">✕</button>
+    <div class="m-emoji">${EMOJI[a.type]}</div>
+    <h3>${a.name}</h3>
+    <div class="m-org">${a.org} · ${a.type}</div>
+    <div class="m-story">${a.story}</div>
+    <div class="progress"><div style="width:${pct}%"></div></div>
+    <div class="a-stats" style="margin-top:8px;"><span>${won(a.raised)} / ${won(a.target)}</span><span>${pct}%</span></div>
+    <button class="btn btn-primary btn-block" style="margin-top:18px;" id="mDonateBtn">이 동물에게 기부하기</button>
+  `;
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('mClose').addEventListener('click', closeModal);
+  document.getElementById('mDonateBtn').addEventListener('click', ()=>{
+    selectedAnimalId = id; closeModal();
+    document.getElementById('donate').scrollIntoView({behavior:'smooth'});
+    renderDonateAnimal();
+  });
+}
+function closeModal(){ document.getElementById('modalBg').classList.remove('open'); }
+document.getElementById('modalBg').addEventListener('click', e=>{ if(e.target.id==='modalBg') closeModal(); });
+
+/* ============ 히어로 패스북 데모 ============ */
+let heroBalance = 128305;
+let heroDigit = 3;
+function renderHeroDigits(){
+  const str = String(heroBalance);
+  const box = document.getElementById('heroDigits');
+  let html = '';
+  for(let i=0;i<str.length;i++){
+    const fromRight = str.length - i;
+    const isDonate = fromRight <= heroDigit;
+    html += `<div class="digit ${isDonate?'donate':'kept'}" data-pos="${fromRight}">${str[i]}</div>`;
+    const remainder = fromRight - 1;
+    if(remainder>0 && remainder % 3 === 0) html += `<div class="comma">,</div>`;
+  }
+  box.innerHTML = html;
+  box.querySelectorAll('.digit').forEach(d=>d.addEventListener('click', ()=>{
+    heroDigit = +d.dataset.pos; updateHero();
+  }));
+}
+function updateHero(){
+  renderHeroDigits();
+  const mod = Math.pow(10, heroDigit);
+  const donateAmt = heroDigit >= String(heroBalance).length ? heroBalance : heroBalance % mod;
+  const kept = heroBalance - donateAmt;
+  document.getElementById('heroHint').textContent = `오른쪽 ${heroDigit}자리까지 기부됩니다`;
+  document.getElementById('heroAmount').textContent = won(donateAmt);
+  document.getElementById('heroKept').textContent = won(kept);
+}
+function renderHeroPeriod(){
+  const periods = ["매일","매주","매달","분기"];
+  document.getElementById('heroPeriod').innerHTML = periods.map(p=>`<button class="${p===selectedPeriodHero?'active':''}" data-p="${p}">${p}</button>`).join('');
+  document.querySelectorAll('#heroPeriod button').forEach(b=>b.addEventListener('click', ()=>{
+    selectedPeriodHero = b.dataset.p; renderHeroPeriod();
+  }));
+}
+renderHeroPeriod();
+updateHero();
+
+/* ============ 모금 섹션 ============ */
+function renderPickList(){
+  document.getElementById('pickList').innerHTML = animals.map(a=>
+    `<button class="pick-chip ${a.id===selectedAnimalId?'active':''}" data-id="${a.id}">${EMOJI[a.type]} ${a.name}</button>`
+  ).join('');
+  document.querySelectorAll('.pick-chip').forEach(b=>b.addEventListener('click', ()=>{
+    selectedAnimalId = +b.dataset.id; renderPickList(); renderDonateAnimal();
+  }));
+}
+function renderDonateAnimal(){
+  const a = animals.find(x=>x.id===selectedAnimalId);
+  document.getElementById('selectedAnimalBox').innerHTML = `
+    <div class="emoji">${EMOJI[a.type]}</div>
+    <div class="info"><div class="n">${a.name}</div><div class="s">${a.org} · ${a.type}</div></div>
+  `;
+  document.querySelectorAll('.pick-chip').forEach(b=>b.classList.toggle('active', +b.dataset.id===selectedAnimalId));
+  document.getElementById('sumAnimal').textContent = a.name;
+  updateSummary();
+}
+
+function renderLinkBox(){
+  const box = document.getElementById('linkBox');
+  if(linked && userAccount){
+    box.classList.add('linked');
+    box.innerHTML = `
+      <div style="font-size:12px;color:var(--forest-mid);font-weight:600;">✓ 계좌 연결 완료 (${userAccount.accountNumber})</div>
+      <div class="mono" style="font-size:22px;font-weight:700;color:var(--forest-deep);margin-top:6px;">${won(balance)}</div>
+      <div style="font-size:11.5px;color:#8a9488;margin-top:2px;">마이페이지에 등록된 계좌 · 실시간 데모 잔액</div>
+      <button class="btn btn-ghost btn-sm" style="margin-top:10px;" id="linkBtn">다른 계좌로 변경</button>
+    `;
+  } else if(!currentUser){
+    box.classList.remove('linked');
+    box.innerHTML = `
+      <div style="font-size:13px;color:#586359;margin-bottom:10px;">로그인 후 계좌를 연결하면 자동 기부를 시작할 수 있어요</div>
+      <button class="btn btn-primary btn-sm" id="linkBtn">로그인하고 계좌 연결하기</button>
+    `;
+  } else {
+    box.classList.remove('linked');
+    box.innerHTML = `
+      <div style="font-size:13px;color:#586359;margin-bottom:10px;">계좌를 연결하면 실시간 잔액을 불러와요 (데모 가상 연동)</div>
+      <button class="btn btn-primary btn-sm" id="linkBtn">가상 계좌 연결하기</button>
+    `;
+  }
+  document.getElementById('linkBtn').addEventListener('click', handleLinkClick);
+}
+
+async function handleLinkClick(){
+  if(!currentUser){ openAuthModal('login'); return; }
+  await linkAccountFlow();
+}
+
+async function linkAccountFlow(){
+  const num = prompt('연결할 가상 계좌번호를 입력해주세요 (예: 302-1234-5678)');
+  if(!num) return;
+  const bal = Math.floor(Math.random()*900000)+50000;
+  const res = await apiCall('saveAccount', { userId: currentUser.id, accountNumber:num, balance:bal });
+  if(res.ok){
+    userAccount = { accountNumber:num, balance:bal, linkedAt: new Date().toISOString() };
+    linked = true; balance = bal;
+    renderMpAccount();
+    renderLinkBox(); renderDonateDigits(); updateSummary();
+    toast('계좌가 등록되었어요.');
+  } else {
+    toast(res.message || '계좌 등록에 실패했어요.');
+  }
+}
+
+const digitSlider = document.getElementById('digitSlider');
+digitSlider.addEventListener('input', ()=>{
+  document.getElementById('digitVal').textContent = digitSlider.value;
+  renderDonateDigits();
+  updateSummary();
+});
+
+function renderDonateDigits(){
+  const wrap = document.getElementById('donateDigits');
+  if(!linked){ wrap.innerHTML = `<div style="font-size:12.5px;color:#8a9488;">계좌를 연결하면 잔액이 표시됩니다</div>`; return; }
+  const digit = +digitSlider.value;
+  const str = String(balance);
+  let html = '';
+  for(let i=0;i<str.length;i++){
+    const fromRight = str.length - i;
+    const isDonate = fromRight <= digit;
+    html += `<div class="digit ${isDonate?'donate':'kept'}" style="cursor:default;width:28px;height:38px;font-size:22px;">${str[i]}</div>`;
+  }
+  wrap.innerHTML = html;
+}
+
+function renderPeriodGrid(){
+  const periods = ["매일","매주","매달","분기"];
+  document.getElementById('periodGrid').innerHTML = periods.map(p=>`<button class="${p===selectedPeriod?'active':''}" data-p="${p}">${p}</button>`).join('');
+  document.querySelectorAll('#periodGrid button').forEach(b=>b.addEventListener('click', ()=>{
+    selectedPeriod = b.dataset.p; renderPeriodGrid(); updateSummary();
+  }));
+}
+
+function calcDonation(){
+  if(!linked) return 0;
+  const digit = +digitSlider.value;
+  const mod = Math.pow(10, digit);
+  return digit >= String(balance).length ? balance : balance % mod;
+}
+
+function updateSummary(){
+  const digit = +digitSlider.value;
+  document.getElementById('sumBalance').textContent = linked ? won(balance) : "계좌 미연결";
+  document.getElementById('sumDigit').textContent = digit + "자리";
+  document.getElementById('sumPeriod').textContent = selectedPeriod;
+  document.getElementById('sumAmount').textContent = won(calcDonation());
+}
+
+document.getElementById('confirmDonate').addEventListener('click', async ()=>{
+  if(!currentUser){ toast("로그인 후 기부할 수 있어요"); openAuthModal('login'); return; }
+  if(!linked){ toast("먼저 계좌를 연결해주세요"); return; }
+  const amt = calcDonation();
+  if(amt<=0){ toast("기부 금액이 0원이에요. 자릿수를 조정해보세요"); return; }
+  const a = animals.find(x=>x.id===selectedAnimalId);
+  const btn = document.getElementById('confirmDonate');
+  btn.disabled = true; btn.textContent = '처리중...';
+  const res = await apiCall('addDonation', { userId: currentUser.id, animalId:a.id, animalName:a.name, amount:amt, digit:+digitSlider.value, period:selectedPeriod });
+  btn.disabled = false; btn.textContent = '이 조건으로 정기 기부 시작';
+  if(res.ok){
+    a.raised += amt;
+    userDonations.unshift({ animalName:a.name, amount:amt, period:selectedPeriod, digit:+digitSlider.value, createdAt: (res.donation && res.donation.createdAt) || new Date().toISOString() });
+    renderHist();
+    renderMpDonations();
+    renderAnimalGrid();
+    toast(`${a.name}에게 ${selectedPeriod}마다 ${won(amt)}씩 자동 기부를 시작했어요 🎉`);
+  } else {
+    toast(res.message || '기부 처리에 실패했어요.');
+  }
+});
+
+function renderHist(){
+  const box = document.getElementById('histList');
+  if(!currentUser){ box.innerHTML = `<div class="empty-note">로그인하면 기부 내역이 여기에 표시돼요.</div>`; return; }
+  if(!userDonations || userDonations.length===0){ box.innerHTML = `<div class="empty-note">아직 기부 내역이 없어요.</div>`; return; }
+  box.innerHTML = userDonations.slice(0,5).map(h=>`
+    <div class="hist-item"><span>${h.animalName} · ${h.period} (${h.digit}자리)</span><span class="h-amt">${won(h.amount)}</span></div>
+  `).join('');
+}
+
+/* ============ 인증 (회원가입 / 로그인) ============ */
+function renderAuthArea(){
+  const box = document.getElementById('authArea');
+  if(currentUser){
+    box.innerHTML = `<div class="user-chip"><span class="u-name">${currentUser.name}님</span><button id="logoutBtn">로그아웃</button></div>`;
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+  } else {
+    box.innerHTML = `<button class="btn btn-ghost btn-sm" id="loginBtn">로그인</button><button class="btn btn-primary btn-sm" id="signupBtn">회원가입</button>`;
+    document.getElementById('loginBtn').addEventListener('click', ()=>openAuthModal('login'));
+    document.getElementById('signupBtn').addEventListener('click', ()=>openAuthModal('signup'));
+  }
+}
+
+function openAuthModal(mode){
+  renderAuthModalContent(mode);
+  document.getElementById('modalBg').classList.add('open');
+}
+
+function renderAuthModalContent(mode){
+  document.getElementById('modalContent').className = 'modal';
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" id="mClose">✕</button>
+    <h3>EUPHORIA 회원</h3>
+    <div class="auth-tabs">
+      <button data-m="login" class="${mode==='login'?'active':''}">로그인</button>
+      <button data-m="signup" class="${mode==='signup'?'active':''}">회원가입</button>
+    </div>
+    <form class="auth-form" id="authForm">
+      ${mode==='signup' ? `<div class="field"><label>이름</label><input required id="auth_name" placeholder="홍길동"></div>` : ''}
+      <div class="field"><label>이메일</label><input required type="email" id="auth_email" placeholder="you@example.com"></div>
+      <div class="field"><label>비밀번호</label><input required type="password" id="auth_pw" placeholder="••••••••"></div>
+      <button type="submit" class="btn btn-primary btn-block">${mode==='login'?'로그인':'회원가입하고 시작하기'}</button>
+    </form>
+    <div class="auth-note">회원 정보는 연동된 구글 시트에 저장돼요. 데모 서비스이니 실제로 사용하는 비밀번호는 입력하지 마세요.</div>
+  `;
+  document.getElementById('mClose').addEventListener('click', closeModal);
+  document.querySelectorAll('.auth-tabs button').forEach(b=>b.addEventListener('click', ()=>renderAuthModalContent(b.dataset.m)));
+  document.getElementById('authForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('auth_email').value;
+    const pw = document.getElementById('auth_pw').value;
+    const submitBtn = e.target.querySelector('button[type=submit]');
+    submitBtn.disabled = true; submitBtn.textContent = '처리중...';
+    let res;
+    if(mode === 'signup'){
+      const name = document.getElementById('auth_name').value;
+      res = await apiCall('signup', { email, password: pw, name });
+    } else {
+      res = await apiCall('login', { email, password: pw });
+    }
+    submitBtn.disabled = false; submitBtn.textContent = mode==='login' ? '로그인' : '회원가입하고 시작하기';
+    if(res.ok){
+      currentUser = res.user;
+      closeModal();
+      renderAuthArea();
+      toast(`${currentUser.name}님, 환영해요!`);
+      await loadUserData();
+      renderMypage();
+      renderLinkBox();
+      renderDonateDigits();
+      updateSummary();
+      renderHist();
+    } else {
+      toast(res.message || '오류가 발생했어요.');
+    }
+  });
+}
+
+async function loadUserData(){
+  if(!currentUser) return;
+  const accRes = await apiCall('getAccount', { userId: currentUser.id });
+  if(accRes.ok && accRes.account){ userAccount = accRes.account; linked = true; balance = userAccount.balance; }
+  const donRes = await apiCall('getDonations', { userId: currentUser.id });
+  if(donRes.ok) userDonations = donRes.donations || [];
+}
+
+function logout(){
+  currentUser = null; userAccount = null; userDonations = []; linked = false; balance = 0;
+  renderAuthArea(); renderMypage(); renderLinkBox(); renderDonateDigits(); updateSummary(); renderHist();
+  toast('로그아웃 되었어요.');
+}
+
+/* ============ 마이페이지 ============ */
+function renderMypage(){
+  const box = document.getElementById('mypageBody');
+  if(!currentUser){
+    box.innerHTML = `
+      <div class="mp-locked">
+        <div class="lock-emoji">🔒</div>
+        <h3>로그인이 필요해요</h3>
+        <p>로그인하면 계좌를 등록하고 기부 내역을 확인할 수 있어요.</p>
+        <button class="btn btn-primary" id="mpLoginBtn">로그인 / 회원가입</button>
+      </div>`;
+    document.getElementById('mpLoginBtn').addEventListener('click', ()=>openAuthModal('login'));
+    return;
+  }
+  box.innerHTML = `
+    <div class="mypage-grid">
+      <div>
+        <div class="mp-card">
+          <h4>👤 내 정보</h4>
+          <div class="mp-account-row"><span>이름</span><span>${currentUser.name}</span></div>
+          <div class="mp-account-row" style="border-bottom:none;"><span>이메일</span><span>${currentUser.email}</span></div>
+        </div>
+        <div class="mp-card">
+          <h4>💳 등록된 계좌</h4>
+          <div id="mpAccountBox"></div>
+        </div>
+      </div>
+      <div class="mp-card">
+        <h4>🐾 내 기부 내역</h4>
+        <div id="mpDonationBox"></div>
+      </div>
+    </div>`;
+  renderMpAccount();
+  renderMpDonations();
+}
+
+function renderMpAccount(){
+  const box = document.getElementById('mpAccountBox');
+  if(!box) return;
+  if(userAccount){
+    box.innerHTML = `
+      <div class="mp-account-row"><span>계좌</span><span class="mono">${userAccount.accountNumber}</span></div>
+      <div class="mp-account-row"><span>잔액</span><span class="mono">${won(userAccount.balance)}</span></div>
+      <div class="mp-account-row" style="border-bottom:none;"><span>연결일</span><span>${new Date(userAccount.linkedAt).toLocaleDateString('ko-KR')}</span></div>
+      <button class="btn btn-ghost btn-sm btn-block" style="margin-top:12px;" id="mpRelink">다른 계좌로 변경</button>`;
+    document.getElementById('mpRelink').addEventListener('click', linkAccountFlow);
+  } else {
+    box.innerHTML = `<p style="font-size:12.8px;color:#5b655c;margin-bottom:12px;">등록된 계좌가 없어요.</p>
+      <button class="btn btn-primary btn-sm btn-block" id="mpLink">계좌 등록하기</button>`;
+    document.getElementById('mpLink').addEventListener('click', linkAccountFlow);
+  }
+}
+
+function renderMpDonations(){
+  const box = document.getElementById('mpDonationBox');
+  if(!box) return;
+  if(!userDonations || userDonations.length===0){
+    box.innerHTML = `<div class="empty-note">아직 기부 내역이 없어요.</div>`;
+    return;
+  }
+  box.innerHTML = `
+    <table class="mp-table">
+      <thead><tr><th>동물</th><th>금액</th><th>주기</th><th>날짜</th></tr></thead>
+      <tbody>
+        ${userDonations.map(d=>`<tr><td>${d.animalName}</td><td class="amt">${won(d.amount)}</td><td>${d.period}</td><td>${new Date(d.createdAt).toLocaleDateString('ko-KR')}</td></tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+/* ============ 이용안내 ============ */
+document.getElementById('guideBtn').addEventListener('click', ()=>{
+  document.getElementById('modalContent').className = 'modal wide';
+  document.getElementById('modalContent').innerHTML = `
+    <button class="modal-close" id="mClose">✕</button>
+    <h3>EUPHORIA 이용 안내</h3>
+    <p style="text-align:center;font-size:12.5px;color:#8a9488;margin-top:6px;">이렇게 이용해보세요</p>
+    <div style="margin-top:18px;">
+      <div class="guide-item"><div class="guide-num">1</div><div><h5>회원가입 &amp; 로그인</h5><p>이메일·이름으로 간단히 가입하면 내 계좌와 기부 내역이 구글 시트에 안전하게 저장돼요.</p></div></div>
+      <div class="guide-item"><div class="guide-num">2</div><div><h5>계좌 등록</h5><p>마이페이지 또는 모금 화면의 '통장 연결' 단계에서 계좌를 등록하면, 잔액을 불러와 자릿수 기부에 사용할 수 있어요.</p></div></div>
+      <div class="guide-item"><div class="guide-num">3</div><div><h5>동물 이야기 둘러보기</h5><p>유기견·유기묘·은퇴 경주마 등 사연을 가진 동물들의 이야기를 읽고 마음이 가는 동물을 찾아보세요.</p></div></div>
+      <div class="guide-item"><div class="guide-num">4</div><div><h5>자릿수 모금 설정</h5><p>기부할 동물, 자릿수(1~100), 주기(매일/매주/매달/분기)를 정하면 통장 잔액의 끝자리만큼 부담 없이 자동 기부돼요.</p></div></div>
+      <div class="guide-item"><div class="guide-num">5</div><div><h5>기부 내역 확인</h5><p>마이페이지에서 내가 기부한 동물, 금액, 날짜를 언제든 확인할 수 있어요.</p></div></div>
+      <div class="guide-item"><div class="guide-num">6</div><div><h5>기관 연계</h5><p>동물 보호 기관은 보호 중인 동물을 직접 등록하고, 새로운 기관은 파트너 참여를 신청할 수 있어요.</p></div></div>
+    </div>
+  `;
+  document.getElementById('modalBg').classList.add('open');
+  document.getElementById('mClose').addEventListener('click', closeModal);
+});
+
+/* ============ 기관 연계 ============ */
+function renderOrgs(){
+  document.getElementById('orgGrid').innerHTML = orgs.map(o=>`
+    <div class="org-card">
+      <div class="o-icon">🏛️</div>
+      <div class="o-name">${o.name}</div>
+      <div class="o-loc">${o.loc}</div>
+      <div class="o-desc">${o.desc}</div>
+      <div class="o-meta">${o.count}</div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('animalForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const type = document.getElementById('af_type').value;
+  const newAnimal = {
+    id: Date.now(),
+    name: document.getElementById('af_name').value,
+    type,
+    org: document.getElementById('af_org').value,
+    story: document.getElementById('af_story').value,
+    target: +document.getElementById('af_target').value || 500000,
+    raised: 0
+  };
+  animals.unshift(newAnimal);
+  e.target.reset();
+  renderFilters(); renderAnimalGrid(); renderPickList();
+  toast(`${newAnimal.name}의 이야기가 등록되었어요 🐾`);
+  document.getElementById('animals').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('orgForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const newOrg = {
+    name: document.getElementById('of_name').value,
+    loc: document.getElementById('of_loc').value,
+    desc: document.getElementById('of_desc').value,
+    count: "심사 진행중"
+  };
+  orgs.unshift(newOrg);
+  e.target.reset();
+  renderOrgs();
+  toast(`${newOrg.name} 파트너 신청이 접수되었어요`);
+});
+
+/* ============ 초기 렌더 ============ */
+renderFilters();
+renderAnimalGrid();
+renderPickList();
+renderDonateAnimal();
+renderPeriodGrid();
+renderOrgs();
+renderAuthArea();
+renderMypage();
+renderLinkBox();
+renderHist();
+setInterval(()=>{ /* keep passbook demo idle-safe */ }, 0);
+</script>
+</body>
+</html>
